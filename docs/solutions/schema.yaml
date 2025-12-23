@@ -1,0 +1,250 @@
+# Compound Learning Solutions - YAML Schema
+
+# This schema defines the structure for solution documentation.
+# All solution documents must validate against this schema.
+
+# =============================================================================
+# REQUIRED FIELDS
+# =============================================================================
+
+required_fields:
+  - date
+  - problem_type
+  - severity
+  - symptoms
+  - root_cause
+  - tags
+
+# =============================================================================
+# PROBLEM TYPE ENUMS
+# =============================================================================
+
+problem_type:
+  description: "Primary category of the problem"
+  values:
+    - performance_issue     # N+1 queries, slow responses, memory leaks
+    - security_issue        # Vulnerabilities, auth issues, data exposure
+    - database_issue        # Schema problems, migration issues, data integrity
+    - build_error           # Compilation, bundling, dependency errors
+    - test_failure          # Failing tests, flaky tests, coverage issues
+    - runtime_error         # Exceptions, crashes, unexpected behavior
+    - ui_bug                # Visual glitches, responsive issues, accessibility
+    - integration_issue     # API failures, third-party service problems
+    - logic_error           # Business logic bugs, incorrect calculations
+    - configuration_issue   # Environment, settings, deployment configs
+    - workflow_gap          # Missing steps in agent workflows, lifecycle issues
+
+# =============================================================================
+# SEVERITY LEVELS
+# =============================================================================
+
+severity:
+  description: "Impact severity of the problem"
+  values:
+    - critical    # System down, data loss, security breach
+    - high        # Major feature broken, significant user impact
+    - medium      # Feature partially broken, workaround available
+    - low         # Minor issue, cosmetic, minor inconvenience
+
+# =============================================================================
+# COMPONENT TYPES
+# =============================================================================
+
+component:
+  description: "Technical component where issue occurred"
+  values:
+    # Backend
+    - api_endpoint
+    - database_model
+    - database_migration
+    - background_job
+    - service_object
+    - controller
+    - middleware
+    
+    # Frontend
+    - react_component
+    - vue_component
+    - css_styling
+    - javascript_logic
+    - state_management
+    
+    # Infrastructure
+    - ci_cd_pipeline
+    - docker_container
+    - environment_config
+    - deployment
+    - monitoring
+    
+    # Testing
+    - unit_test
+    - integration_test
+    - e2e_test
+    
+    # Other
+    - workflow
+    - documentation
+    - dependency
+    - third_party_api
+    - other
+
+# =============================================================================
+# ROOT CAUSE CATEGORIES
+# =============================================================================
+
+root_cause:
+  description: "Underlying cause of the problem"
+  values:
+    # Code Issues
+    - missing_include         # N+1, eager loading issues
+    - null_check_missing      # NullPointerException, undefined errors
+    - type_mismatch           # Wrong types, serialization issues
+    - race_condition          # Concurrency, timing issues
+    - infinite_loop           # Performance, hangs
+    - memory_leak             # Resource exhaustion
+    
+    # Logic Issues
+    - incorrect_algorithm     # Wrong business logic
+    - edge_case_unhandled     # Missing boundary checks
+    - off_by_one              # Index errors
+    - wrong_assumption        # Incorrect mental model
+    
+    # Configuration Issues
+    - env_var_missing         # Missing environment variable
+    - wrong_config_value      # Incorrect setting
+    - version_mismatch        # Dependency conflicts
+    
+    # Process Issues
+    - process_issue           # Missing workflow steps, manual skip
+    - communication_gap       # Missing info during handoff
+    - validation_missing      # Tooling didn't catch error
+    
+    # Integration Issues
+    - api_contract_changed    # External API breaking change
+    - timeout_too_short       # Network timing
+    - auth_expired            # Token/credential issues
+    
+    # Human Issues
+    - typo                    # Spelling mistakes
+    - copy_paste_error        # Duplicated wrong code
+    - merge_conflict_missed   # Git issues
+    - documentation_outdated  # Misleading docs
+    
+    # Other
+    - unknown                 # Root cause not identified
+    - other                   # Doesn't fit categories
+
+# =============================================================================
+# TRACKING FIELDS (Optional)
+# =============================================================================
+
+tracking_fields:
+  related_solutions:
+    description: "List of related solution filenames for manual curation"
+    type: array
+    items: string
+    default: []
+  last_referenced:
+    description: "Date this solution was last used/referenced"
+    type: string
+    format: date
+    default: null
+  review_by:
+    description: "Date by which this solution should be reviewed for freshness"
+    type: string
+    format: date
+    optional: true
+  status:
+    description: "Current lifecycle status of the solution"
+    type: string
+    enum: [active, archived, deprecated, replaced]
+    default: active
+
+# =============================================================================
+# QUALITY METADATA (Optional)
+# =============================================================================
+
+quality_metadata:
+  referenced_count:
+    description: "Number of times this solution has been referenced by compound-search.sh"
+    type: integer
+    default: 0
+  usefulness_score:
+    description: "1-10 score indicating how useful this solution was when referenced. Manual rating by agents when a solution proves helpful."
+    type: integer
+    minimum: 1
+    maximum: 10
+    optional: true
+  related_exploration:
+    description: "Filename of exploration that led to this solution (enables bidirectional linking)"
+    type: string
+    optional: true
+
+# =============================================================================
+# JOURNEY METADATA (Optional)
+# =============================================================================
+
+journey_metadata:
+  attempts_count:
+    description: "Number of significant investigation attempts before resolution"
+    type: integer
+    optional: true
+  time_to_resolve:
+    description: "Duration to resolve (e.g., '2 hours', '3 days')"
+    type: string
+    optional: true
+  lessons_learned_tags:
+    description: "Quick tags for key lessons"
+    type: array
+    items: string
+    optional: true
+    examples:
+      - wrong-assumption
+      - missed-edge-case
+      - incomplete-investigation
+      - overcomplicated-solution
+      - scope-creep
+      - premature-optimization
+
+
+# =============================================================================
+# DIRECTORY MAPPING
+# =============================================================================
+
+directory_mapping:
+  description: "Maps problem_type to solution directory"
+  mapping:
+    performance_issue: "performance-issues"
+    security_issue: "security-issues"
+    database_issue: "database-issues"
+    build_error: "build-errors"
+    test_failure: "test-failures"
+    runtime_error: "runtime-errors"
+    ui_bug: "ui-bugs"
+    integration_issue: "integration-issues"
+    logic_error: "logic-errors"
+    configuration_issue: "build-errors"  # Group with build errors
+    workflow_gap: "logic-errors"         # Group with logic errors
+
+
+# =============================================================================
+# EXAMPLE FRONTMATTER
+# =============================================================================
+
+example:
+  date: "2025-12-19"
+  problem_type: "performance_issue"
+  component: "database_model"
+  severity: "high"
+  symptoms:
+    - "API response taking >5 seconds"
+    - "N+1 query detected in logs"
+  root_cause: "missing_include"
+  tags:
+    - n-plus-one
+    - eager-loading
+    - rails
+    - performance
+  related_issues: []
+  related_solutions: []
+  last_referenced: "2025-12-20"

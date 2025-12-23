@@ -1,0 +1,27 @@
+name: Validate Compound System
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh
+        
+      - name: Validate Compound System
+        run: ./scripts/validate-compound.sh
+        
+      - name: Verify White-Label Neutrality
+        run: |
+          if grep -r "InvestOS" --include="*.md" --include="*.sh" . 2>/dev/null | grep -v ".git"; then
+            echo "Found domain-specific references that should be replaced"
+            exit 1
+          fi
+          echo "White-label validation passed ✓"

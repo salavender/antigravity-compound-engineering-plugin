@@ -1,0 +1,20 @@
+name: "{Spec Name}"
+description: "{Brief description}"
+current_phase: 1
+last_updated: "{YYYY-MM-DD}"
+phases:
+  1:
+    name: "{Phase 1 Name}"
+    status: "complete" # complete, started, not_started
+    progress: 100
+    timeline: "Week 1-2"
+  2:
+    name: "{Phase 2 Name}"
+    status: "started"
+    progress: 50
+    timeline: "Week 3-4"
+  3:
+    name: "{Phase 3 Name}"
+    status: "not_started"
+    progress: 0
+    timeline: "Week 5-6"
