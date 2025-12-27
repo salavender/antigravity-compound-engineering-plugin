@@ -2,7 +2,7 @@
 description: Promote a recurring issue to a critical pattern.
 ---
 
-# /promote_pattern - Pattern Promotion
+# /promote-pattern - Pattern Promotion
 
 Use this workflow when you have a **Pattern Promotion Todo** (ready-p2-promote-pattern).
 Goal: Synthesize individual solutions into a reusable engineering pattern.
@@ -13,7 +13,7 @@ Goal: Synthesize individual solutions into a reusable engineering pattern.
 
 ```bash
 // turbo
-./scripts/log-workflow.sh "/promote_pattern" "$$"
+./scripts/log-workflow.sh "/promote-pattern" "$$"
 ./scripts/compound-search.sh "design pattern"
 ```
 
@@ -76,7 +76,7 @@ await task_boundary({
 
 Next steps:
 1. /housekeeping - Archive used todos
-2. /compound_health - Check pattern coverage
+2. /compound-health - Check pattern coverage
 ```
 
 ---

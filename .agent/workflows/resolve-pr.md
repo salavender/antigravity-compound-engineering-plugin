@@ -2,7 +2,7 @@
 description: Handle PR comments and review feedback efficiently. Use when addressing reviewer feedback.
 ---
 
-# /resolve_pr - Address PR Feedback
+# /resolve-pr - Address PR Feedback
 
 Work through PR comments and review feedback systematically.
 
@@ -20,7 +20,7 @@ Work through PR comments and review feedback systematically.
 
 ```bash
 // turbo
-./scripts/log-workflow.sh "/resolve_pr" "$$"
+./scripts/log-workflow.sh "/resolve-pr" "$$"
 ./scripts/compound-search.sh "pull request review"
 ```
 

@@ -44,7 +44,7 @@ Trigger the planning workflow.
 Review your own plan immediately.
 
 ```bash
-/plan_review
+/plan-review
 ```
 
 *Guidance:*

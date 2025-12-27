@@ -392,7 +392,7 @@ What's next?
 ## References
 
 - Create plans: `/plan`
-- Review plans: `/plan_review`
+- Review plans: `/plan-review`
 - Review changes: `/review`
 - Document solutions: `/compound`
 - Triage remaining work: `/triage`

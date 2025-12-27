@@ -14,7 +14,7 @@
 | `/explore` | Before planning | Deep investigation, best practices, multi-order analysis |
 | `/specs` | Before multi-week initiatives | Create structured specification with phases |
 | `/plan` | Before significant work | Research, design, create implementation plan |
-| `/plan_review` | Before executing plan | Review plan quality and completeness |
+| `/plan-review` | Before executing plan | Review plan quality and completeness |
 | `/work` | During implementation | Execute plan systematically |
 | `/review` | After work complete | Quality check before merge |
 | `/compound` | After solving problems | Capture knowledge for reuse |
@@ -26,13 +26,13 @@
 | Command | Purpose |
 |---------|---------|
 | `/triage` | Prioritize pending todo items |
-| `/resolve_todo` | Batch-process ready todos |
+| `/resolve-todo` | Batch-process ready todos |
 
 ### Code Review
 | Command | Purpose |
 |---------|---------|
-| `/resolve_pr` | Address PR feedback systematically |
-| `/plan_review` | Review plan quality before execution |
+| `/resolve-pr` | Address PR feedback systematically |
+| `/plan-review` | Review plan quality before execution |
 
 ### Release & Docs
 | Command | Purpose |
@@ -52,7 +52,7 @@
 |---------|---------|
 | `/create-agent-skill` | Add new modular capabilities |
 | `/heal-skill` | Diagnose and fix broken skills |
-| `/generate_command` | Create new workflow commands |
+| `/generate-command` | Create new workflow commands |
 
 ### Platform-Specific
 | Command | Purpose |
@@ -63,7 +63,7 @@
 | Command | Purpose |
 |---------|---------|
 | `/housekeeping` | Pre-push cleanup: archive completed work, fix state drift |
-| `/compound_health` | Weekly health check: monitor knowledge base vitals |
+| `/compound-health` | Weekly health check: monitor knowledge base vitals |
 | `check-docs-freshness` | Verify documentation updates for code changes |
 
 ### Modular Skills

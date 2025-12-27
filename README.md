@@ -1,8 +1,8 @@
 # Antigravity Compound Engineering Plugin
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Workflows](https://img.shields.io/badge/workflows-27-green)
-![Patterns](https://img.shields.io/badge/patterns-23-purple)
+![Workflows](https://img.shields.io/badge/workflows-38-green)
+![Patterns](https://img.shields.io/badge/patterns-32-purple)
 ![Scripts](https://img.shields.io/badge/scripts-50+-orange)
 
 > **Each unit of engineering work should make subsequent units of work easier—not harder.**
@@ -15,7 +15,7 @@ This project is inspired by and pays tribute to the original **[Compound Enginee
 
 **Key differences:**
 - **Multi-agent support**: Works with Google Gemini, Claude, and other AI agents
-- **Extended workflows**: 27 workflows covering the full development lifecycle
+- **Extended workflows**: 38 workflows covering the full development lifecycle
 - **Observability**: Built-in telemetry, metrics, and health dashboards
 - **Modular skills**: Plug-and-play capabilities for different domains
 
@@ -49,10 +49,10 @@ The **Antigravity Compound Engineering Plugin** is a complete framework that tra
 ## Features
 
 - 📚 **Knowledge Base** - Searchable solutions with YAML schema validation
-- 🔄 **27 Workflows** - From `/plan` to `/compound` to `/housekeeping`
+- 🔄 **38 Workflows** - From `/plan` to `/compound` to `/housekeeping`
 - 🛠️ **50+ Scripts** - Automation for metrics, validation, and telemetry
-- 🧠 **7+ Modular Skills** - Session resume, compound docs, file todos, code review, testing, debugging
-- 🎯 **23 Critical Patterns** - Antibodies against recurring mistakes
+- 🧠 **10+ Modular Skills** - Session resume, compound docs, file todos, code review, testing, debugging, mobile, security, git, react
+- 🎯 **32 Critical Patterns** - Antibodies against recurring mistakes
 - 📊 **Health Dashboard** - Daily metrics and compound system vitals
 
 ## Quick Start
@@ -101,8 +101,8 @@ $ ./scripts/compound-dashboard.sh
 📊 Compound System Dashboard
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Solutions: 0 (Building knowledge...)
-Patterns: 23 ✓
-Workflows: 27 ✓
+Patterns: 32 ✓
+Workflows: 38 ✓
 Health: Good ✓
 ```
 
@@ -138,7 +138,13 @@ graph LR
 | `/work` | During implementation | Execute plans systematically |
 | `/review` | Before merging | Quality check with multiple perspectives |
 | `/compound` | After solving problems | Capture knowledge for reuse |
-| `/doc` | After code changes | Update folder-level documentation |
+| `/route` | Anytime (Unsure?) | Intelligent workflow routing based on intent |
+| `/audit-security` | Before/After security work | Proactive threat modeling and code audit |
+| `/refactor` | During structure work | Systematic, zero-risk structural improvement |
+| `/release` | Before publishing | Unified pipeline for versioning/changelogs/docs |
+| `/emergency` | During critical incidents | High-velocity hotfix path for outages |
+| `/help` | Anytime | Unified help and discovery for all workflows |
+| `/onboard` | Start of session | Establish context and prime the agent |
 | `/housekeeping` | Before git push | Archive completed work, fix drift |
 
 See [.agent/workflows/README.md](.agent/workflows/README.md) for complete documentation.

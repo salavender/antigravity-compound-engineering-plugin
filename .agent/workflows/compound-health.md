@@ -2,7 +2,7 @@
 description: Check the improved Compound System's health and usage metrics.
 ---
 
-# /compound_health - System Health Check
+# /compound-health - System Health Check
 
 Use this workflow weekly to ensure the Compound System is actually working.
 
@@ -12,7 +12,7 @@ Use this workflow weekly to ensure the Compound System is actually working.
 
 ```bash
 // turbo
-./scripts/log-workflow.sh "/compound_health" "$$"
+./scripts/log-workflow.sh "/compound-health" "$$"
 ./scripts/compound-search.sh "system health"
 ```
 

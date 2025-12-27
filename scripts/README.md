@@ -1,6 +1,11 @@
 # Project Scripts
 
-This directory contains automation scripts that power the agent workflows.
+## Purpose
+
+This directory contains automation scripts that power the agent workflows. They enable self-improvement, validation, and maintenance of the compound engineering system.
+
+## Components
+
 
 ## Workflow Core
 
@@ -52,4 +57,10 @@ Most scripts are designed to be run via the agent workflows (e.g. `/work`, `/hou
 
 ```bash
 ./scripts/check-docs-freshness.sh
+```
+
+## Changelog
+
+- **2025-12-27**: Added git worktree automation scripts.
+- **2025-12-23**: Initial transfer from InvestOS compound system.
 ```

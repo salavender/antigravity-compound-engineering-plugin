@@ -398,7 +398,7 @@ await task_boundary({
 ✓ Plan created: plans/{feature-name}.md
 
 Next steps:
-1. /plan_review - Get feedback on plan quality before execution
+1. /plan-review - Get feedback on plan quality before execution
 2. /work - Start implementing (if plan is simple and you're confident)
 3. Refine plan - Add more detail based on additional research
 4. Create todos - For any deferred scope identified

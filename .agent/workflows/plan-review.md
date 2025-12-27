@@ -1,8 +1,10 @@
 ---
 description: Review implementation plans for quality and completeness. Use before starting work on a plan.
+triggers: [housekeeping, plan, specs, work]
+uses: [compound-docs]
 ---
 
-# /plan_review - Plan Quality Review
+# /plan-review - Plan Quality Review
 
 Review an implementation plan for completeness and quality before execution.
 
@@ -26,9 +28,9 @@ Review an implementation plan for completeness and quality before execution.
 
 ```bash
 // turbo
-./scripts/log-workflow.sh "/plan_review" "$$"
+./scripts/log-workflow.sh "/plan-review" "$$"
 ./scripts/compound-search.sh "{main problem keywords}"
-./scripts/log-skill.sh "compound-docs" "workflow" "/plan_review"
+./scripts/log-skill.sh "compound-docs" "workflow" "/plan-review"
 ```
 
 **See also:** `skills/compound-docs/SKILL.md` for cross-referencing findings.
@@ -125,25 +127,11 @@ cat plans/{plan-name}.md
 
 ### Step 4: Provide Feedback
 
+Save the feedback to `plans/reviews/{plan-name}-review.md`.
+
 ```markdown
 ## Plan Review: {Plan Name}
-
-### Strengths
-- {What's good about the plan}
-
-### Concerns
-- {Issues that need addressing}
-
-### Suggestions
-- {Improvements to consider}
-
-### Existing Solutions Referenced
-- {Any solutions from docs/solutions/ that apply}
-
-### Verdict
-- [ ] Ready to execute
-- [ ] Needs minor revisions
-- [ ] Needs major revisions
+...
 ```
 
 ---
@@ -182,7 +170,7 @@ Once the plan is approved and the status is updated:
 
 ```bash
 ./scripts/create-todo.sh "p1" "Revise Plan: ${plan_name}" \
-  "Plan review identified major issues in plans/${plan_name}.md that need to be addressed before execution can proceed.\n\nConcerns:\n(Paste summary of concerns here)" \
+  "Plan review identified major issues in plans/${plan_name}.md that need to be addressed before execution can proceed.\n\nReview: plans/reviews/${plan_name}-review.md\n\nConcerns:\n(Paste summary of concerns here)" \
   "Revise plan to address concerns" \
   "Re-request review"
 ```
@@ -245,4 +233,3 @@ Next steps:
 - Execute plans: `/work`
 - Search solutions: `./scripts/compound-search.sh`
 - Archive when done: `/housekeeping`
-

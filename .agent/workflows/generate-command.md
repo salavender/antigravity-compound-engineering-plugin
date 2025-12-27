@@ -2,7 +2,7 @@
 description: Create new workflow commands dynamically. Use to extend the workflow system.
 ---
 
-# /generate_command - Create New Commands
+# /generate-command - Create New Commands
 
 Generate new workflow commands with proper structure.
 
@@ -12,7 +12,7 @@ Generate new workflow commands with proper structure.
 
 ```bash
 // turbo
-./scripts/log-workflow.sh "/generate_command" "$$"
+./scripts/log-workflow.sh "/generate-command" "$$"
 ./scripts/compound-search.sh "workflow command"
 ```
 

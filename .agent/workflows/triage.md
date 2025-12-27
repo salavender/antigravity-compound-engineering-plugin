@@ -141,7 +141,7 @@ await task_boundary({
 
 Next steps:
 1. /work - Start working on approved items
-2. /resolve_todo - Batch process approved items
+2. /resolve-todo - Batch process approved items
 ```
 
 ---
@@ -149,4 +149,4 @@ Next steps:
 ## References
 
 - Todos created by: `/review`, `/plan`, `/compound`
-- Work on todos: `/work`, `/resolve_todo`
+- Work on todos: `/work`, `/resolve-todo`

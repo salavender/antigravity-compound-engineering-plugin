@@ -214,7 +214,7 @@ await task_boundary({
 
 Next steps:
 1. /work - Start a new task from a todo or plan
-2. /resolve_todo - Batch process existing todos
+2. /resolve-todo - Batch process existing todos
 3. /plan - Create a plan for a new feature or fix
 4. Continue working - Perform manual follow-ups
 ```
@@ -224,6 +224,6 @@ Next steps:
 - **Archive script:** `scripts/archive-completed.sh`
 - **State audit:** `scripts/audit-state-drift.sh`
 - **Health check:** `scripts/pre-push-housekeeping.sh`
-- **Todo management:** `/resolve_todo`
+- **Todo management:** `/resolve-todo`
 - **Plan creation:** `/plan`
 

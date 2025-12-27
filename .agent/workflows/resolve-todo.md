@@ -2,7 +2,7 @@
 description: Resolve multiple todo items efficiently. Use to batch-process ready todos.
 ---
 
-# /resolve_todo - Batch Todo Resolution
+# /resolve-todo - Batch Todo Resolution
 
 Work through ready todo items systematically.
 
@@ -22,7 +22,7 @@ Even if the todo contains a proposed solution, check for newer patterns or relat
 
 ```bash
 // turbo
-./scripts/log-workflow.sh "/resolve_todo" "$$"
+./scripts/log-workflow.sh "/resolve-todo" "$$"
 ./scripts/compound-search.sh "{relevant keywords}"
 ```
 

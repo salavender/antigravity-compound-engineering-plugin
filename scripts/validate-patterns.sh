@@ -1,121 +1,96 @@
 #!/bin/bash
-# Validate critical-patterns.md integrity
-# Ensures numerical continuity (1..N) and validates relative source links.
+# scripts/validate-patterns.sh
+# Validates numerical sequence and link integrity in critical-patterns.md
+# and individual pattern files.
 
-PATTERNS_FILE="docs/solutions/patterns/critical-patterns.md"
-DOCS_ROOT="docs/solutions/patterns"
+# Instrumentation
+./scripts/log-skill.sh "pattern-validation" "automated" "$$"
 
-echo "🔍 Validating Pattern Registry ($PATTERNS_FILE)..."
-
-if [ ! -f "$PATTERNS_FILE" ]; then
-    echo "❌ Critical Error: $PATTERNS_FILE not found!"
-    exit 1
-fi
-
+PATTERNS_INDEX="docs/solutions/patterns/critical-patterns.md"
+INDIVIDUAL_DIR="docs/solutions/patterns/individual"
 EXIT_CODE=0
 
-# ---------------------------------------------------------
-# 1. Numerical Continuity Check
-# ---------------------------------------------------------
-echo "Checking numerical continuity..."
+echo "🔍 Validating Pattern Registry..."
 
-# Extract pattern numbers
-# 1. grep headers "### Pattern #12"
-# 2. sed to capture the number
-# 3. sort numerically
-pattern_numbers=$(grep -E "^### Pattern #[0-9]+" "$PATTERNS_FILE" | sed -E 's/### Pattern #([0-9]+).*/\1/' | sort -n)
-
-expected=1
-count=0
-gap_found=0
-
-for num in $pattern_numbers; do
-    # Remove leading zeros if any (bash treats 08 as octal otherwise, though sort -n handles output well)
-    num=$((10#$num))
-    
-    if [ "$num" -ne "$expected" ]; then
-        echo "❌ Gap or Sequence Error: Expected Pattern #$expected but found #$num"
-        gap_found=1
-        EXIT_CODE=1
-        # Sync expected to next number to allow finding more errors or just continue?
-        # Let's just adjust expected to current + 1 to try and continue linear check
-        expected=$(($num + 1))
-    else
-        expected=$(($expected + 1))
-    fi
-    count=$(($count + 1))
-done
-
-if [ "$gap_found" -eq 0 ]; then
-    echo "✅ Pattern sequence is valid (Count: $count)"
-else
-    echo "❌ Pattern sequence check failed."
-fi
-
-# ---------------------------------------------------------
-# ---------------------------------------------------------
-# 2. Source Link Validation
-# ---------------------------------------------------------
-echo "Checking source links..."
-# Use a temp file to track errors to avoid subshell variable scope issues
-error_log=$(mktemp)
-grep_output=$(mktemp)
-
-# Debug: check if grep works
-if ! command -v grep &> /dev/null; then
-    echo "❌ Error: grep command not found"
+if [ ! -f "$PATTERNS_INDEX" ]; then
+    echo "❌ Error: $PATTERNS_INDEX not found."
     exit 1
 fi
 
-grep -n "Source:" "$PATTERNS_FILE" > "$grep_output"
+# 1. Index Continuity and Link Check
+echo "   Checking critical-patterns.md index..."
+patterns=$(grep -oE "\[[^]]*\]\(\./individual/pattern-([0-9]+)-.*\.md\)" "$PATTERNS_INDEX" | sed -E 's/.*pattern-([0-9]+)-.*/\1/')
 
-# Read from temp file
-while read -r line; do
-    # Format: "line_number:Source: [Link Text](path)"
-    
-    line_num=$(echo "$line" | cut -d: -f1)
-    content=$(echo "$line" | cut -d: -f2-)
-    
-    # Extract path between parenthesis - non-greedy match for content inside first parens after brackets
-    link_path=$(echo "$content" | sed -E 's/.*\]\(([^)]*)\).*/\1/')
-    
-    if [ -z "$link_path" ] || [ "$link_path" = "$content" ]; then
-        continue
+current=0
+for p in $patterns; do
+    expected=$((current + 1))
+    # Remove leading zeros
+    p_num=$((10#$p))
+    if [ "$p_num" -ne "$expected" ]; then
+        echo "   ❌ Gap detected in index: Found Pattern #$p_num but expected #$expected"
+        EXIT_CODE=1
     fi
+    current=$p_num
+done
 
-    if [[ "$link_path" == http* ]]; then
-        continue
-    fi
-    
-    # Ignore absolute file paths (artifacts)
-    if [[ "$link_path" == file://* ]]; then
-        continue
-    fi
-
-    check_path="$DOCS_ROOT/$link_path"
-    
-    if [ ! -f "$check_path" ]; then
-        echo "❌ Broken link on line $line_num: $link_path"
-        echo "   (Checked path: $check_path)"
-        echo "error" >> "$error_log"
-    fi
-
-done < "$grep_output"
-
-rm "$grep_output"
-
-if [ -s "$error_log" ]; then
-    echo "❌ Source link validation failed."
+if [ "$current" -eq 0 ]; then
+    echo "   ❌ No patterns found in index."
     EXIT_CODE=1
-else
-    echo "✅ All source links are valid."
 fi
-rm "$error_log"
+
+# 2. Individual File Validation
+echo "   Checking individual pattern files in $INDIVIDUAL_DIR..."
+files=$(ls "$INDIVIDUAL_DIR"/pattern-*.md 2>/dev/null)
+
+if [ -z "$files" ]; then
+    echo "   ❌ No individual pattern files found!"
+    EXIT_CODE=1
+fi
+
+for f in $files; do
+    fname=$(basename "$f")
+    # Extract number from filename
+    f_num=$(echo "$fname" | sed -E 's/pattern-([0-9]+)-.*/\1/')
+    f_num=$((10#$f_num))
+    
+    # Check frontmatter matches filename
+    fm_num=$(grep "pattern_number:" "$f" | awk '{print $2}')
+    if [ -z "$fm_num" ] || [ "$fm_num" -ne "$f_num" ]; then
+        echo "   ❌ Frontmatter mismatch in $fname: pattern_number=$fm_num"
+        EXIT_CODE=1
+    fi
+    
+    # Check for domain-specific terms (Safety check for white-labeling)
+    if grep -Ei "InvestOS|Portfolio|FundAdmin" "$f" > /dev/null; then
+        echo "   ⚠️ Warning: Potential domain-specific term in $fname"
+        # We don't fail for warnings unless they are certain InvestOS references
+        if grep -i "InvestOS" "$f" > /dev/null; then
+            echo "   ❌ Found 'InvestOS' in $fname - FAILED"
+            EXIT_CODE=1
+        fi
+    fi
+
+    # Check relative links in the individual file
+    # We look for links like [Text](../../category/file.md)
+    links=$(grep -oE "\[[^]]*\]\(\.{1,3}/[^)]*\)" "$f" | sed -E 's/\[[^]]*\]\(([^)]*)\)/\1/')
+    for link in $links; do
+        clean_link=$(echo "$link" | cut -d'#' -f1)
+        # Resolved path relative to the file's dir (INDIVIDUAL_DIR)
+        target=$(realpath -m "$INDIVIDUAL_DIR/$clean_link")
+        # Check if it exists within the project root
+        project_root=$(pwd)
+        if [ ! -f "$target" ] && [ ! -d "$target" ]; then
+             echo "   ❌ Broken link in $fname: $link (Target not found)"
+             EXIT_CODE=1
+        fi
+    done
+done
 
 if [ "$EXIT_CODE" -eq 0 ]; then
-    echo "🎉 Validation Passed: Pattern Registry is healthy."
+    echo "   ✅ Pattern registry and modular files are valid ($current patterns checked)."
 else
-    echo "🚫 Validation Failed."
+    echo "   ❌ Pattern validation contains errors."
 fi
 
 exit $EXIT_CODE
+
