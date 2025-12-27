@@ -62,8 +62,8 @@ The **Antigravity Compound Engineering Plugin** is a complete framework that tra
 Click **"Use this template"** on GitHub, or:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/antigravity-compound-engineering-plugin.git my-project
-cd my-project
+git clone https://github.com/salavender/antigravity-compound-engineering-plugin
+cd antigravity-compound-engineering-plugin
 ```
 
 ### 2. Run setup
