@@ -19,6 +19,7 @@
 | `/review` | After work complete | Quality check before merge |
 | `/compound` | After solving problems | Capture knowledge for reuse |
 | `/housekeeping` | Before git push | Archive completed work, fix drift |
+| `/tracker-routing` | Before creating or moving work objects | Choose Linear vs GitHub vs repository docs |
 
 ## Support Commands
 
@@ -75,6 +76,7 @@
 | `code-review` | Systematic quality gates | `skills/code-review/SKILL.md` |
 | `testing` | Unified test patterns | `skills/testing/SKILL.md` |
 | `debug` | Structured root cause analysis | `skills/debug/SKILL.md` |
+| `tracker-routing` | Route work to repository docs, GitHub, or Linear | `skills/tracker-routing/SKILL.md` |
 
 ---
 
@@ -98,7 +100,7 @@ grep -r "{keywords}" docs/solutions/
 cat docs/solutions/patterns/critical-patterns.md
 ```
 
-### 2. Check Pending Work
+### 3. Check Pending Work
 
 ```bash
 # Any active specs?
@@ -118,17 +120,11 @@ ls plans/*.md 2>/dev/null
 ```
 .agent/workflows/     # You are here - all workflow commands
 docs/solutions/       # Persistent knowledge base
-├── patterns/         # Critical patterns (READ FIRST)
-├── schema.yaml       # Solution validation schema
-└── {categories}/     # Categorized solutions
 docs/explorations/    # Deep investigations & research
 skills/               # Modular capabilities
 plans/                # Implementation plans from /plan
-└── archive/          # Completed plans
 todos/                # Work items from /review, /triage
-└── archive/          # Completed todos
 docs/specs/           # Multi-session specifications
-└── archive/          # Completed specs
 ```
 
 ---
@@ -141,7 +137,8 @@ docs/specs/           # Multi-session specifications
 4. **Create todos for deferred work** - Don't just document in artifacts
 5. **Use conventional commits** - Enables changelog automation
 6. **Housekeeping before push** - Run `/housekeeping` to archive completed work
+7. **Route trackers semantically** - `/tracker-routing` before creating or moving work objects; promotion between Linear and GitHub is not synchronization
 
 ---
 
-*Last updated: 2025-12-20*
+*Last updated: 2026-08-14*
