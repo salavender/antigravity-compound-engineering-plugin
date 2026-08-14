@@ -45,6 +45,16 @@ When the decision is made:
 2. link any resulting GitHub execution work;
 3. archive the Linear object when it is no longer an active decision/attention surface.
 
+### Auto-synced GitHub projections
+
+If Linear's GitHub **Issues Sync** creates a GitHub issue for a Linear decision, that GitHub issue is a **read-only projection**, not engineering work.
+
+- Do not implement it.
+- Do not assign engineering agents to it.
+- Do not create a branch/PR from it.
+- Do not close it independently of the Linear decision while Issues Sync is enabled.
+- Prefer disabling GitHub Issues Sync for this repository; keep PR/commit linking enabled.
+
 ## GitHub
 
 Engineering agents default to GitHub for:
