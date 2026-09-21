@@ -19,8 +19,13 @@ jobs:
         run: ./scripts/validate-compound.sh
         
       - name: Verify White-Label Neutrality
+        # The guard scripts are excluded because they CARRY the token as the thing they search
+        # for: validate-patterns.sh names it three times, so this step could never pass however
+        # clean the docs were — and it had been red on every run since the step was added.
+        # Narrow exclusion, listed by file, not a directory wildcard.
         run: |
-          if grep -r "InvestOS" --include="*.md" --include="*.sh" . 2>/dev/null | grep -v ".git"; then
+          if grep -r "InvestOS" --include="*.md" --include="*.sh" \
+               --exclude="validate-patterns.sh" . 2>/dev/null | grep -v ".git"; then
             echo "Found domain-specific references that should be replaced"
             exit 1
           fi

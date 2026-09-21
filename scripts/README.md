@@ -62,5 +62,4 @@ Most scripts are designed to be run via the agent workflows (e.g. `/work`, `/hou
 ## Changelog
 
 - **2025-12-27**: Added git worktree automation scripts.
-- **2025-12-23**: Initial transfer from InvestOS compound system.
 ```
